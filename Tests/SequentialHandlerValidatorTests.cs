@@ -36,7 +36,8 @@ namespace Validators.Test
                 {
                     new MustBeCheap(testData,200),
                     new MustHaveNiceColor(testData),
-                    new MustNotBeOld(testData)
+                    new MustNotBeOld(testData),
+                    new EmptyRule()
 
                 }
             };
@@ -49,7 +50,8 @@ namespace Validators.Test
             Assert.IsTrue(checkList.Rules.ElementAt(0).State == CheckRuleState.Valid);
             Assert.IsTrue(checkList.Rules.ElementAt(1).State == CheckRuleState.InValid);
             Assert.IsTrue(checkList.Rules.ElementAt(2).State == CheckRuleState.Valid);
- 
+            Assert.IsTrue(checkList.Rules.ElementAt(3).State == CheckRuleState.Valid);
+
         }
 
         [TestMethod]
@@ -63,7 +65,8 @@ namespace Validators.Test
                 {
                     new MustHaveNiceColor(testData),
                     new MustBeCheap(testData,100),
-                    new MustNotBeOld(testData)
+                    new MustNotBeOld(testData),
+                    new EmptyRule()
                 }
             };
 
@@ -73,7 +76,7 @@ namespace Validators.Test
             //Assert
             Assert.IsTrue(checkList.Valid);
             Assert.IsTrue(checkList.Rules.All(d => d.State == CheckRuleState.Valid));
-         
+            
         }
          
         [TestMethod]
@@ -87,7 +90,8 @@ namespace Validators.Test
                 {
                     new MustHaveNiceColor(testData),
                     new MustBeCheap(testData,100),
-                    new MustNotBeOld(testData)
+                    new MustNotBeOld(testData),
+                    new EmptyRule()
                 }
             };
 
@@ -98,6 +102,7 @@ namespace Validators.Test
             var baseRules = checkList.Rules.Cast<BaseTestRule>();
             Assert.IsTrue(baseRules.ElementAt(1).ValidationTime > baseRules.ElementAt(0).ValidationTime);
             Assert.IsTrue(baseRules.ElementAt(2).ValidationTime > baseRules.ElementAt(1).ValidationTime);
+            Assert.IsTrue(baseRules.ElementAt(3).ValidationTime > baseRules.ElementAt(2).ValidationTime);
 
         }
     }

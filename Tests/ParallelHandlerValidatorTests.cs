@@ -34,8 +34,8 @@ namespace Validators.Test
                 {
                     new MustBeCheap(testData,200),
                     new MustHaveNiceColor(testData),
-                    new MustNotBeOld(testData)
-
+                    new MustNotBeOld(testData),
+                    new EmptyRule()
                 }
             };
 
@@ -44,7 +44,7 @@ namespace Validators.Test
 
             //Assert
             Assert.IsTrue(!checkList.Valid);
-            Assert.IsTrue(checkList.Rules.All(d => d.State != CheckRuleState.NotValidated));
+            Assert.IsTrue(!checkList.Rules.All(d => d.State == CheckRuleState.Valid));
 
         }
 
@@ -57,7 +57,8 @@ namespace Validators.Test
                 Rules = new List<ICheckRule>()
                 {
                     new MustBeCheap(testData,150),
-                    new MustNotBeOld(testData)
+                    new MustNotBeOld(testData),
+                    new EmptyRule()
                 }
             };
 
@@ -81,7 +82,8 @@ namespace Validators.Test
                 {
                     new MustHaveNiceColor(testData),
                     new MustBeCheap(testData,100),
-                    new MustNotBeOld(testData)
+                    new MustNotBeOld(testData),
+                    new EmptyRule()
                 }
             };
 
@@ -92,6 +94,7 @@ namespace Validators.Test
             var baseRules = checkList.Rules.Cast<BaseTestRule>();
             Assert.IsTrue(baseRules.ElementAt(0).ValidationTime > baseRules.ElementAt(1).ValidationTime);
             Assert.IsTrue(baseRules.ElementAt(0).ValidationTime > baseRules.ElementAt(2).ValidationTime);
+            Assert.IsTrue(baseRules.ElementAt(0).ValidationTime > baseRules.ElementAt(3).ValidationTime);
 
         }
 
