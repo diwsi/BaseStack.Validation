@@ -3,6 +3,6 @@
     public interface ICheckRule
     {
         CheckRuleState State { get; set; }
-        Task Run() ;
+        Task Run() ;  
     }
 }

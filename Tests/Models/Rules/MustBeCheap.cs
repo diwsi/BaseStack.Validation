@@ -2,13 +2,15 @@
 
 namespace Validators.Test.Models.Rules
 {
-    public class MustBeCheap : ICheckRule
+    public class MustBeCheap : BaseTestRule, ICheckRule
     {
         private readonly Car car;
+        private readonly int averageValue;
 
-        public MustBeCheap(Car car)
+        public MustBeCheap(Car car, int averageValue)
         {
             this.car = car;
+            this.averageValue = averageValue;
         }
         public CheckRuleState State { get; set; }
 
@@ -16,14 +18,15 @@ namespace Validators.Test.Models.Rules
         {
             return Task.Run(() =>
             {
-                if (car.Age > 5 && car.Price > 100)
+                if (car.Price < averageValue)
                 {
-                    State = CheckRuleState.InValid;
+                    State = CheckRuleState.Valid;
                 }
                 else
                 {
                     State = CheckRuleState.Valid;
-                }
+                };
+                ValidationTime = DateTime.Now;
             });
         }
     }

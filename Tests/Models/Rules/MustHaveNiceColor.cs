@@ -2,7 +2,7 @@
 
 namespace Validators.Test.Models.Rules
 {
-    public class MustHaveNiceColor : ICheckRule
+    public class MustHaveNiceColor : BaseTestRule, ICheckRule
     {
         private readonly Car car;
 
@@ -14,8 +14,9 @@ namespace Validators.Test.Models.Rules
 
         public Task Run()
         {
-            return Task.Run(() =>
+            return Task.Run(async () =>
             {
+                await Task.Delay(1000);
                 switch (car.Color)
                 {
                     case "Red":
@@ -27,6 +28,8 @@ namespace Validators.Test.Models.Rules
                         State = CheckRuleState.InValid;
                         break;
                 }
+
+                ValidationTime = DateTime.Now;
             });
         }
     }

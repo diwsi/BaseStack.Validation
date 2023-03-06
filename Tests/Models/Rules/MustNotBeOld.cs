@@ -2,11 +2,11 @@
 
 namespace Validators.Test.Models.Rules
 {
-    public class MustBeNotOld : ICheckRule
+    public class MustNotBeOld : BaseTestRule, ICheckRule
     {
         private readonly Car car;
 
-        public MustBeNotOld(Car car)
+        public MustNotBeOld(Car car)
         {
             this.car = car;
         }
@@ -26,6 +26,7 @@ namespace Validators.Test.Models.Rules
                 {
                     State = CheckRuleState.InValid;
                 }
+                ValidationTime = DateTime.Now;
             });
             
         }
